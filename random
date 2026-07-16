@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Birthday Gift!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #mobile-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        #desktop-content {
+            display: none;
+            text-align: center;
+        }
+        .btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+        .btn:hover {
+            background-color: #ff6b81;
+        }
+        /* Scare Overlay */
+        #scare-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        #scare-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            animation: violent-shake 0.1s infinite;
+        }
+        /* Shaking animation to maximize the jump scare impact */
+        @keyframes violent-shake {
+            0% { transform: translate(5px, 5px) rotate(0deg) scale(1.1); }
+            10% { transform: translate(-5px, -5px) rotate(-2deg) scale(1.1); }
+            20% { transform: translate(-8px, 0px) rotate(2deg) scale(1.1); }
+            30% { transform: translate(0px, 8px) rotate(0deg) scale(1.1); }
+            40% { transform: translate(5px, -5px) rotate(2deg) scale(1.1); }
+            50% { transform: translate(-5px, 8px) rotate(-2deg) scale(1.1); }
+            60% { transform: translate(-8px, 5px) rotate(0deg) scale(1.1); }
+            70% { transform: translate(5px, 5px) rotate(-2deg) scale(1.1); }
+            80% { transform: translate(-5px, -5px) rotate(2deg) scale(1.1); }
+            90% { transform: translate(5px, 8px) rotate(0deg) scale(1.1); }
+            100% { transform: translate(2px, -8px) rotate(-2deg) scale(1.1); }
+        }
+        .birthday-wish {
+            font-size: 3rem;
+            color: #ff4757;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mobile-message">
+        <h2>Please open this link on a laptop or desktop computer for the best experience! 🎉</h2>
+    </div>
+
+    <div id="desktop-content">
+        <h1>Happy Birthday! 🎁</h1>
+        <p>Click below to unlock your interactive birthday video card.</p>
+        <button class="btn" id="start-btn">Unlock Gift</button>
+    </div>
+
+    <div id="scare-overlay">
+        <img id="scare-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/House_lizard.jpg/800px-House_lizard.jpg" alt="Scare Lizard">
+        
+        <audio id="scare-audio" src="https://www.soundjay.com/creatures/sounds/monsters-creature-cry-01.mp3" preload="auto"></audio>
+    </div>
+
+    <script>
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isSmallScreen = window.innerWidth <= 1024;
+
+        const mobileDiv = document.getElementById('mobile-message');
+        const desktopDiv = document.getElementById('desktop-content');
+        const scareOverlay = document.getElementById('scare-overlay');
+        const startBtn = document.getElementById('start-btn');
+        const audio = document.getElementById('scare-audio');
+
+        // Laptop/Desktop restriction
+        if (isMobile || isSmallScreen) {
+            mobileDiv.style.display = 'block';
+        } else {
+            desktopDiv.style.display = 'block';
+        }
+
+        // Action trigger
+        startBtn.addEventListener('click', () => {
+            // Force Fullscreen
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
+            
+            scareOverlay.style.display = 'flex';
+            audio.volume = 1.0;
