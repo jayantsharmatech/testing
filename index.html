@@ -49,24 +49,19 @@
             align-items: center;
         }
         #scare-overlay img {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            animation: violent-shake 0.1s infinite;
+            /* Forces the downloaded image to cover the entire browser screen perfectly */
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            animation: subtle-twitch 0.15s infinite;
         }
-        /* Intense shaking animation */
-        @keyframes violent-shake {
-            0% { transform: translate(5px, 5px) rotate(0deg) scale(1.15); }
-            10% { transform: translate(-5px, -5px) rotate(-3deg) scale(1.15); }
-            20% { transform: translate(-8px, 0px) rotate(3deg) scale(1.15); }
-            30% { transform: translate(0px, 9px) rotate(0deg) scale(1.15); }
-            40% { transform: translate(5px, -5px) rotate(3deg) scale(1.15); }
-            50% { transform: translate(-5px, 8px) rotate(-3deg) scale(1.15); }
-            60% { transform: translate(-8px, 5px) rotate(0deg) scale(1.15); }
-            70% { transform: translate(5px, 5px) rotate(-3deg) scale(1.15); }
-            80% { transform: translate(-5px, -5px) rotate(3deg) scale(1.15); }
-            90% { transform: translate(5px, 8px) rotate(0deg) scale(1.15); }
-            100% { transform: translate(2px, -8px) rotate(-3deg) scale(1.15); }
+        /* Toned down, less vibrating animation so the photo is clearly visible */
+        @keyframes subtle-twitch {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            25% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+            50% { transform: translate(-2px, 0px) rotate(0.5deg); }
+            75% { transform: translate(1px, 1px) rotate(0deg); }
+            100% { transform: translate(-1px, -1px) rotate(-0.5deg); }
         }
         .birthday-wish {
             font-size: 2.5rem;
@@ -106,7 +101,7 @@
             audio.volume = 1.0; 
             audio.play().catch(err => console.log("Audio waiting for player interaction."));
 
-            // Exactly 4 seconds
+            // Stays active for exactly 4 seconds
             setTimeout(() => {
                 scareOverlay.style.display = 'none';
                 
