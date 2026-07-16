@@ -48,80 +48,25 @@
             justify-content: center;
             align-items: center;
         }
-        
-        /* The CSS Rendered Lizard Frame */
-        #lizard-box {
-            position: relative;
-            width: 300px;
-            height: 450px;
+        #scare-overlay img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
             animation: violent-shake 0.1s infinite;
         }
-        /* Lizard Body Components */
-        .lizard-body {
-            position: absolute;
-            width: 50px;
-            height: 200px;
-            background: #556b2f;
-            border-radius: 50%;
-            top: 100px;
-            left: 125px;
-            box-shadow: inset -10px -10px 20px #3a4d1f;
-        }
-        .lizard-head {
-            position: absolute;
-            width: 40px;
-            height: 60px;
-            background: #556b2f;
-            border-radius: 50% 50% 40% 40%;
-            top: 55px;
-            left: 130px;
-        }
-        .eye {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: red;
-            border-radius: 50%;
-            top: 70px;
-        }
-        .eye.left { left: 138px; }
-        .eye.right { right: 138px; }
-        .tail {
-            position: absolute;
-            width: 14px;
-            height: 180px;
-            background: #556b2f;
-            border-radius: 50%;
-            top: 270px;
-            left: 143px;
-            transform-origin: top center;
-            transform: rotate(5deg);
-        }
-        .leg {
-            position: absolute;
-            width: 70px;
-            height: 15px;
-            background: #465c24;
-            border-radius: 10px;
-        }
-        .leg.top-left { top: 120px; left: 70px; transform: rotate(20deg); }
-        .leg.top-right { top: 120px; right: 70px; transform: rotate(-20deg); }
-        .leg.bot-left { top: 230px; left: 65px; transform: rotate(-30deg); }
-        .leg.bot-right { top: 230px; right: 65px; transform: rotate(30deg); }
-
-        /* Shaking animation to maximize the jump scare impact */
+        /* Intense shaking animation */
         @keyframes violent-shake {
-            0% { transform: translate(5px, 5px) rotate(0deg) scale(1.4); }
-            10% { transform: translate(-5px, -5px) rotate(-3deg) scale(1.4); }
-            20% { transform: translate(-8px, 0px) rotate(3deg) scale(1.4); }
-            30% { transform: translate(0px, 8px) rotate(0deg) scale(1.4); }
-            40% { transform: translate(5px, -5px) rotate(3deg) scale(1.4); }
-            50% { transform: translate(-5px, 8px) rotate(-3deg) scale(1.4); }
-            60% { transform: translate(-8px, 5px) rotate(0deg) scale(1.4); }
-            70% { transform: translate(5px, 5px) rotate(-3deg) scale(1.4); }
-            80% { transform: translate(-5px, -5px) rotate(3deg) scale(1.4); }
-            90% { transform: translate(5px, 8px) rotate(0deg) scale(1.4); }
-            100% { transform: translate(2px, -8px) rotate(-3deg) scale(1.4); }
+            0% { transform: translate(5px, 5px) rotate(0deg) scale(1.15); }
+            10% { transform: translate(-5px, -5px) rotate(-3deg) scale(1.15); }
+            20% { transform: translate(-8px, 0px) rotate(3deg) scale(1.15); }
+            30% { transform: translate(0px, 9px) rotate(0deg) scale(1.15); }
+            40% { transform: translate(5px, -5px) rotate(3deg) scale(1.15); }
+            50% { transform: translate(-5px, 8px) rotate(-3deg) scale(1.15); }
+            60% { transform: translate(-8px, 5px) rotate(0deg) scale(1.15); }
+            70% { transform: translate(5px, 5px) rotate(-3deg) scale(1.15); }
+            80% { transform: translate(-5px, -5px) rotate(3deg) scale(1.15); }
+            90% { transform: translate(5px, 8px) rotate(0deg) scale(1.15); }
+            100% { transform: translate(2px, -8px) rotate(-3deg) scale(1.15); }
         }
         .birthday-wish {
             font-size: 2.5rem;
@@ -139,17 +84,7 @@
     </div>
 
     <div id="scare-overlay">
-        <div id="lizard-box">
-            <div class="lizard-head"></div>
-            <div class="eye left"></div>
-            <div class="eye right"></div>
-            <div class="lizard-body"></div>
-            <div class="leg top-left"></div>
-            <div class="leg top-right"></div>
-            <div class="leg bot-left"></div>
-            <div class="leg bot-right"></div>
-            <div class="tail"></div>
-        </div>
+        <img id="scare-img" src="scary.jpg" alt="Scare Lizard">
         
         <audio id="scare-audio" src="https://www.soundjay.com/creatures/sounds/monsters-creature-cry-01.mp3" preload="auto"></audio>
     </div>
@@ -171,7 +106,7 @@
             audio.volume = 1.0; 
             audio.play().catch(err => console.log("Audio waiting for player interaction."));
 
-            // Sets screen hold time to exactly 4 seconds
+            // Exactly 4 seconds
             setTimeout(() => {
                 scareOverlay.style.display = 'none';
                 
