@@ -54,19 +54,19 @@
             object-fit: contain;
             animation: violent-shake 0.1s infinite;
         }
-        /* Intense shaking animation */
+        /* Violent Shaking Animation */
         @keyframes violent-shake {
-            0% { transform: translate(5px, 5px) rotate(0deg) scale(1.1); }
-            10% { transform: translate(-5px, -5px) rotate(-2deg) scale(1.1); }
-            20% { transform: translate(-8px, 0px) rotate(2deg) scale(1.1); }
-            30% { transform: translate(0px, 8px) rotate(0deg) scale(1.1); }
-            40% { transform: translate(5px, -5px) rotate(2deg) scale(1.1); }
-            50% { transform: translate(-5px, 8px) rotate(-2deg) scale(1.1); }
-            60% { transform: translate(-8px, 5px) rotate(0deg) scale(1.1); }
-            70% { transform: translate(5px, 5px) rotate(-2deg) scale(1.1); }
-            80% { transform: translate(-5px, -5px) rotate(2deg) scale(1.1); }
-            90% { transform: translate(5px, 8px) rotate(0deg) scale(1.1); }
-            100% { transform: translate(2px, -8px) rotate(-2deg) scale(1.1); }
+            0% { transform: translate(6px, 6px) rotate(0deg) scale(1.15); }
+            10% { transform: translate(-6px, -6px) rotate(-3deg) scale(1.15); }
+            20% { transform: translate(-9px, 0px) rotate(3deg) scale(1.15); }
+            30% { transform: translate(0px, 9px) rotate(0deg) scale(1.15); }
+            40% { transform: translate(6px, -6px) rotate(3deg) scale(1.15); }
+            50% { transform: translate(-6px, 9px) rotate(-3deg) scale(1.15); }
+            60% { transform: translate(-9px, 6px) rotate(0deg) scale(1.15); }
+            70% { transform: translate(6px, 6px) rotate(-3deg) scale(1.15); }
+            80% { transform: translate(-6px, -6px) rotate(3deg) scale(1.15); }
+            90% { transform: translate(6px, 9px) rotate(0deg) scale(1.15); }
+            100% { transform: translate(3px, -9px) rotate(-3deg) scale(1.15); }
         }
         .birthday-wish {
             font-size: 2.5rem;
@@ -83,9 +83,12 @@
         <button class="btn" id="start-btn">Unlock Gift</button>
     </div>
 
+    <!-- The Scare Layer -->
     <div id="scare-overlay">
-        <img id="scare-img" src="https://i.ibb.co/VYqS4G8m/lizard-scare.jpg" alt="Scare Lizard">
+        <!-- SVG LIZARD VECTOR EMBEDDED DIRECTLY AS DATA (Instant offline/online load guarantee) -->
+        <img id="scare-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='500' height='500'><rect width='100' height='100' fill='black'/><path d='M50,15 C45,20 42,28 45,35 C46,38 43,42 38,44 C30,48 20,40 15,48 C12,53 18,55 23,53 C32,50 38,55 42,65 C45,72 40,82 50,90 C60,82 55,72 58,65 C62,55 68,50 77,53 C82,55 88,53 85,48 C80,40 70,48 62,44 C57,42 54,38 55,35 C58,28 55,20 50,15 Z' fill='%232ed573'/><circle cx='47' cy='25' r='2' fill='red'/><circle cx='53' cy='25' r='2' fill='red'/><path d='M49,15 Q46,10 43,12 M51,15 Q54,10 57,12' stroke='red' stroke-width='0.8' fill='none'/><path d='M25,49 Q18,45 12,50 M75,49 Q82,45 88,50 M35,62 Q25,65 20,58 M65,62 Q75,65 80,58' stroke='%231e7e34' stroke-width='1.5' fill='none'/></svg>" alt="Scare Lizard">
         
+        <!-- Sudden screech audio -->
         <audio id="scare-audio" src="https://www.soundjay.com/creatures/sounds/monsters-creature-cry-01.mp3" preload="auto"></audio>
     </div>
 
@@ -95,37 +98,32 @@
         const startBtn = document.getElementById('start-btn');
         const audio = document.getElementById('scare-audio');
 
-        // Action trigger for all devices
         startBtn.addEventListener('click', () => {
-            // Fullscreen trigger
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen().catch(() => {});
             } else if (document.documentElement.webkitRequestFullscreen) {
                 document.documentElement.webkitRequestFullscreen().catch(() => {});
             }
             
-            // Show the lizard instantly
             scareOverlay.style.display = 'flex';
             audio.volume = 1.0; 
-            audio.play().catch(err => console.log("Audio waiting for player interaction."));
+            audio.play().catch(err => console.log("Audio play blocked by browser policies."));
 
-            // INCREASED TIME: Stays on screen for 8 seconds (8000ms) so it doesn't close too fast
+            // FIXED TIME: 4000 milliseconds = Exactly 4 seconds
             setTimeout(() => {
                 scareOverlay.style.display = 'none';
                 
-                // Exit fullscreen mode safely
                 if (document.exitFullscreen) {
                     document.exitFullscreen().catch(() => {});
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen().catch(() => {});
                 }
 
-                // Show the final birthday greeting (this stays on screen forever)
                 mainContent.innerHTML = `
                     <h1 class="birthday-wish">🎉 HAPPY BIRTHDAY! 🎉</h1>
                     <h2>Gotcha! Hope this birthday is completely lizard-free! 😂🦎</h2>
                 `;
-            }, 8000); 
+            }, 4000); 
         });
     </script>
 </body>
