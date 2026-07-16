@@ -54,7 +54,7 @@
             object-fit: contain;
             animation: violent-shake 0.1s infinite;
         }
-        /* Shaking animation to maximize the jump scare impact */
+        /* Intense shaking animation */
         @keyframes violent-shake {
             0% { transform: translate(5px, 5px) rotate(0deg) scale(1.1); }
             10% { transform: translate(-5px, -5px) rotate(-2deg) scale(1.1); }
@@ -84,7 +84,7 @@
     </div>
 
     <div id="scare-overlay">
-        <img id="scare-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/House_lizard.jpg/800px-House_lizard.jpg" alt="Scare Lizard">
+        <img id="scare-img" src="https://i.ibb.co/VYqS4G8m/lizard-scare.jpg" alt="Scare Lizard">
         
         <audio id="scare-audio" src="https://www.soundjay.com/creatures/sounds/monsters-creature-cry-01.mp3" preload="auto"></audio>
     </div>
@@ -97,35 +97,35 @@
 
         // Action trigger for all devices
         startBtn.addEventListener('click', () => {
-            // Try to go fullscreen (works on laptops and android, safely ignored on iOS if unsupported)
+            // Fullscreen trigger
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen().catch(() => {});
-            } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
+            } else if (document.documentElement.webkitRequestFullscreen) {
                 document.documentElement.webkitRequestFullscreen().catch(() => {});
             }
             
-            // Immediately reveal the lizard
+            // Show the lizard instantly
             scareOverlay.style.display = 'flex';
             audio.volume = 1.0; 
-            audio.play().catch(err => console.log("Audio playback managed by browser policy."));
+            audio.play().catch(err => console.log("Audio waiting for player interaction."));
 
-            // After 3 seconds, turn off the scare and show the birthday card
+            // INCREASED TIME: Stays on screen for 8 seconds (8000ms) so it doesn't close too fast
             setTimeout(() => {
                 scareOverlay.style.display = 'none';
                 
                 // Exit fullscreen mode safely
                 if (document.exitFullscreen) {
                     document.exitFullscreen().catch(() => {});
-                } else if (document.webkitExitFullscreen) { /* Safari */
+                } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen().catch(() => {});
                 }
 
-                // Show the final birthday greeting
+                // Show the final birthday greeting (this stays on screen forever)
                 mainContent.innerHTML = `
                     <h1 class="birthday-wish">🎉 HAPPY BIRTHDAY! 🎉</h1>
                     <h2>Gotcha! Hope this birthday is completely lizard-free! 😂🦎</h2>
                 `;
-            }, 3000);
+            }, 8000); 
         });
     </script>
 </body>
