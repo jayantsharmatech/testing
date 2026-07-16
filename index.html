@@ -35,27 +35,31 @@
         .btn:hover {
             background-color: #ff6b81;
         }
-        /* Scare Overlay */
+        /* Scare Overlay Container */
         #scare-overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             background-color: black;
             z-index: 9999;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden; /* Prevents scrollbars from appearing */
         }
         #scare-overlay img {
-            /* Forces the downloaded image to cover the entire browser screen perfectly */
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
+            /* Fixes the overflow issue by locking edges to the container borders */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Crops cleanly inside the screen dimensions without stretching */
+            margin: 0;
+            padding: 0;
             animation: subtle-twitch 0.15s infinite;
         }
-        /* Toned down, less vibrating animation so the photo is clearly visible */
+        /* Subtly animated jitter effect */
         @keyframes subtle-twitch {
             0% { transform: translate(1px, 1px) rotate(0deg); }
             25% { transform: translate(-1px, -1px) rotate(-0.5deg); }
@@ -80,7 +84,6 @@
 
     <div id="scare-overlay">
         <img id="scare-img" src="scary.jpg" alt="Scare Lizard">
-        
         <audio id="scare-audio" src="https://www.soundjay.com/creatures/sounds/monsters-creature-cry-01.mp3" preload="auto"></audio>
     </div>
 
@@ -97,11 +100,11 @@
                 document.documentElement.webkitRequestFullscreen().catch(() => {});
             }
             
-            scareOverlay.style.display = 'flex';
+            scareOverlay.style.display = 'block'; // Switched to block layout to align with absolute image positions
             audio.volume = 1.0; 
-            audio.play().catch(err => console.log("Audio waiting for player interaction."));
+            audio.play().catch(err => console.log("Audio waiting for user gesture context."));
 
-            // Stays active for exactly 4 seconds
+            // Holds for 4 seconds
             setTimeout(() => {
                 scareOverlay.style.display = 'none';
                 
@@ -113,8 +116,7 @@
 
                 mainContent.innerHTML = `
                     <h1 class="birthday-wish">🎉 HAPPY BIRTHDAY! 🎉</h1>
-                    <h2>Gotcha! Hope this birthday is completely lizard-free! 😂🦎 
-                    sorry yrr but gift toh tumko bahut denge i wanted to give something different enjoy 😂😂</h2>
+                    <h2>Gotcha! Hope this birthday is completely lizard-free! 😂🦎</h2>
                 `;
             }, 4000); 
         });
